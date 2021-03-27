@@ -43,7 +43,7 @@ public class AStarState {
         if (numOpenWaypoints() == 0) {
             return null;
         }
-        return openStar.values().stream().max(Comparator.comparing(Waypoint::getTotalCost)).orElse(null); // https://www.baeldung.com/java-collection-min-max
+        return openStar.values().stream().min(Comparator.comparing(Waypoint::getTotalCost)).orElse(null);
     }
 
     /**
@@ -77,15 +77,13 @@ public class AStarState {
         return openStar.size();
     }
 
-
     /**
      * This method moves the waypoint at the specified location from the
      * open list to the closed list.
      **/
-    public void closeWaypoint(Location loc)
-    {
+    public void closeWaypoint(Location loc) {
         Waypoint waypoint = openStar.remove(loc);
-        openStar.put(loc, waypoint);
+        closeStar.put(loc, waypoint);
     }
 
     /**
